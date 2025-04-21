@@ -23,15 +23,72 @@
 			body {
 				font-family: 'Inter', sans-serif;
 			}
+            .tab-bar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                background-color: #ffccea;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: center;
+                z-index: 999;
+                padding: 10px 16px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            .tab-title {
+                font-weight: 600;
+                font-size: 15px;
+                flex-shrink: 0;
+                white-space: nowrap;
+                margin-right: auto;
+            }
+            .tab-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                min-width: 0;
+                overflow-x: auto;
+                padding-right: 50px;
+            }
+            .tab-button {
+                text-decoration: none;
+                color: black;
+                font-size: 15px;
+                padding: 8px 16px;
+                border: none;
+                background-color: inherit;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+            .tab-button:hover {
+                background-color: #c77fe3a7;
+            }
+            .tab-button.active {
+                background-color: #c274e0;
+            }
 		</style>
 	</head>
 	<body>
-		<div class="container">
-		<h1>CS184/284A Spring 2025 Final Project Proposal</h1>
-		<br>
+        <div class="tab-bar">
+            <div class="tab-title">CS 184/284A Spring 2025 Final Project</div>
+            <div class="tab-links">
+              <a href="https://karinajin.github.io/Kawaii_Nightmare_cs184_final_project/Proposal/index.html" class="tab-button active">Proposal</a>
+              <a href="https://karinajin.github.io/Kawaii_Nightmare_cs184_final_project/Milestone/index.html" class="tab-button">Milestone</a>
+              <a href="https://karinajin.github.io/Kawaii_Nightmare_cs184_final_project/FinalDeliverable/index.html" class="tab-button">Final Deliverable</a>
+            </div>
+        </div>
 
-		Link to webpage: <a href="https://karinajin.github.io/Kawaii_Nightmare_cs184_final_project/Proposal/index.html">Kawaii_Nightmare_cs184_final_project/Proposal/index.html</a>
-		
+
+		<div class="container">
+		<h1>Kawaii Nightmare - Horror De-Horror-fied</h1>
+        <div style="text-align: center;">Team Members: Angela Marey Rodriguez, Anthea Guo, Jackie Lian, Karina Jin </div>
+        <br>
+
 		<figure>
 			<img src="images/cel_shading.webp"  style="width:70%"/>
 			<figcaption>Cel Shading</figcaption>
@@ -41,9 +98,9 @@
 		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
 		-->
 
-		<h2>Kawaii Nightmare - Horror De-Horror-fied</h2>
-		<div style="text-align: left;">Team Members: Angela Marey Rodriguez, Anthea Guo, Jackie Lian, Karina Jin </div>
-		
+		<!-- <h2>Kawaii Nightmare - Horror De-Horror-fied</h2>
+		<div style="text-align: left;">Team Members: Angela Marey Rodriguez, Anthea Guo, Jackie Lian, Karina Jin </div> -->
+		Link to webpage: <a href="https://karinajin.github.io/Kawaii_Nightmare_cs184_final_project/Proposal/index.html">Kawaii_Nightmare_cs184_final_project/Proposal/index.html</a>
 		<h2>Summary</h2>
 		<p>
 			<span style="color: black;"> In this project, we hope to transform traditionally terrifying horror game scenes into lighthearted, playful and visually cute experiences using custom shaders and model swaps. By injecting stylized effects like cel-shading, pixel shaders, and even character replacements (e.g., turning a terrifying boss into Pikachu), we aim to make horror games more approachable and playful for a broader audience. </span>
