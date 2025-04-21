@@ -72,6 +72,9 @@
                 background-color: #c274e0;
             }
 		</style>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Milestone</title>
 	</head>
 	<body>
         <div class="tab-bar">
@@ -83,155 +86,189 @@
             </div>
         </div>
 
-
 		<div class="container">
 		<h1>Kawaii Nightmare - Horror De-Horror-fied</h1>
         <div style="text-align: center;">Team Members: Angela Marey Rodriguez, Anthea Guo, Jackie Lian, Karina Jin </div>
         <br>
 
 		<figure>
-			<img src="images/cel_shading.webp"  style="width:70%"/>
-			<figcaption>Cel Shading</figcaption>
-		</figure>
+            <video id="milestone" controls style="width:70%">
+              <source src="images/cs184_proj_milestone.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <figcaption>Milestone Video</figcaption>
+        </figure>
+          
+        <script>
+            const video = document.getElementById('milestone');
+            video.addEventListener('play', () => {
+                if (video.currentTime > 0) {
+                    video.currentTime = 0;
+                }
+            });
+        </script>
 
 		<!--
 		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
 		-->
 
-		<!-- <h2>Kawaii Nightmare - Horror De-Horror-fied</h2>
-		<div style="text-align: left;">Team Members: Angela Marey Rodriguez, Anthea Guo, Jackie Lian, Karina Jin </div> -->
-		Link to webpage: <a href="https://karinajin.github.io/Kawaii_Nightmare_cs184_final_project/Proposal/index.html">Kawaii_Nightmare_cs184_final_project/Proposal/index.html</a>
-		<h2>Summary</h2>
-		<p>
-			<span style="color: black;"> In this project, we hope to transform traditionally terrifying horror game scenes into lighthearted, playful and visually cute experiences using custom shaders and model swaps. By injecting stylized effects like cel-shading, pixel shaders, and even character replacements (e.g., turning a terrifying boss into Pikachu), we aim to make horror games more approachable and playful for a broader audience. </span>
-			<br><br>
-		</p>
+		Link to webpage: <a href="https://karinajin.github.io/Kawaii_Nightmare_cs184_final_project/Milestone/index.html">Kawaii_Nightmare_cs184_final_project/Milestone/index.html</a>
+		<br>
+        Link to milestone video: <a href="https://drive.google.com/file/d/1InZ88AaI_T3GJPnOCg-pZTv0CjfkF_8N/view?usp=sharing">Milestone Video Link</a>
+		<br>
+        Link to presentation slides: <a href="https://docs.google.com/presentation/d/1zt-sbrLjKvNAveC40DWSor0WB6StELRZi2beE25_I7M/edit?slide=id.p#slide=id.p">Milestone Presentation Slides</a>
 
-        <h2>Problem Description</h2>
+
+        <h2>Accomplishment</h2>
 		<p>
-			<span style="color: black;"> Our project is changing horror games into cuter and more playful versions of the original horror games so it's not as scary :( and more attractive to a wider audience. </span>
-			<br><br>
-            <span style="color: black;"> <b>Why it is important:</b> Our goal for this project is to make horror games more accessible to a broader range of players, regardless of their fear tolerance or visual limitations. Reshading a variety of horror titles will help demonstrate that games can be designed-or modified-to accommodate different needs without sacrificing artistic intent. For example, around 2-4% of the U.S. population is affected by amblyopia (often called "lazy eye"), and shader techniques for VR games like blurring one eye can potentially aid in strengthening the non-dominant eye through gameplay. Additionally, for colorblind players, adjusting hues to avoid problematic combinations like red and green, while emphasizing high-contrast pairings such as yellow and blue, can significantly improve visual clarity and reduce frustration. By exploring these changes, we hope to show that visual accessibility can be creatively integrated into even the most stylistically intense genres, like horror. </span>
-            <br><br>
-            <span style="color: black;"> <b>Challenges:</b> </span>
-			<ol type ="-"> 
-                <li> <b> Setting up environment for injecting custom shaders: </b> This is our first time modding and creating shaders, so one of our first challenges is setting up a reliable environment that allows us to test and inject custom shaders into existing horror games. This involves configuring tools like ReShade, RenderDoc, or custom DirectX/OpenGL wrappers, which can be difficult to get working properly without prior experience. </li>
+            <ol type="1">
+                <li>
+                  Toon Shading
+                  <ul style="list-style-type: '- '; padding-left: 1.2em; margin-top: 0.2em;">
+                    <li>Boost the brightness of each pixel in the scene</li>
+                    <li>Remap all hues into a narrow magenta-violet band while preserving the scene's original shading and structure to simulate a dreamy vibe compared to the original dark scene</li>
+                    <li>Calculates luminance of each pixel and applied toon-style quantization using a customizable number of levels</li>
+                    <li>Lifts the dark regions of the scene by lerping the luminance within a higher range</li>
+                  </ul>
+                </li>
                 <br>
-                <li> <b> Implementing the shader itself which should achieve noticeable visual effects (ex. Cel/Toon shading, dreamy vibe, Pixel Shader...): </b>
-                    Writing custom shaders from scratch is especially challenging when aiming for distinct horror aesthetics while balancing cuteness and aesthetics, such as a grainy pixel look, eerie lighting, or stylized cel-shading. Because we're new to GLSL/HLSL and real-time rendering pipelines, translating visual ideas into working shader code that actually runs in-game takes a lot of trial and error. </li>
-                <br>
-                <li> <b> Injecting compatible custom shader into different horror games: </b> Making shaders work across different horror games like REPO or Resident Evil adds another layer of difficulty, especially when the games use different engines or rendering APIs (DirectX 9/11/12, OpenGL, Vulkan, etc.). Each title may require unique hooking methods or adjustments to make our shader compatible. </li>
-                <br>
+                <li>
+                    Watercolor Shading
+                    <ul style="list-style-type: '- '; padding-left: 1.2em;">
+                        <li> Implemented a custom watercolor shader in Resident Evil 2 using ReShade and cel shading techniques</li>
+                        <li> Introduced soft blending to simulate the flowing, light quality of watercolor</li>
+                        <li> Added edge contrast and a paper texture overlay to enhance authenticity</li>
+                    </ul>
+                </li>
             </ol>
-            <span style="color: black;"> To solve it, we are looking into ReShade (a generic post-processing injector for games) for injecting our own custom shader into different horror games that support mods. We can also first try out shaders that are already built and learn from other people's modification of the code to inject these shaders before implementing our own.
-                After verifying that custom shaders can be successfully injected, we want to do further modifications on top of that to create more visual effects such as model swapping (replacing horror bosses with Pikachu).
-            </span>
 		</p>
 
-        
-        <h2>Goals and Deliverables</h2>
+        <h2>Preliminary Results</h2>
 		<p>
+            <span style="color: black;"> Toon Shader:</span><br>
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				  <tr>
+					<td style="text-align: center;">
+					  <img src="images/scene1_orig.JPG" width="190px"/>
+					</td>
+					<td style="text-align: center;">
+					  <img src="images/scene2_orig.JPG" width="190px"/>
+					</td>
+					<td style="text-align: center;">
+						<img src="images/scene3_orig.JPG" width="190px"/>
+					</td>
+					<td style="text-align: center;">
+						<img src="images/scene4_orig.JPG" width="190px"/>
+					</td>
+				  </tr>
+				</table>
+			</div>
             <div style="display: flex; flex-direction: column; align-items: center;">
 				<table style="width: 100%; text-align: center; border-collapse: collapse;">
 				  <tr>
 					<td style="text-align: center;">
-					  <img src="images/1.png" width="275px"/>
-					  <figcaption>Water Color haunted house</figcaption>
+					  <img src="images/scene1_toon.JPG" width="190px"/>
 					</td>
 					<td style="text-align: center;">
-					  <img src="images/dreamy_img.png" width="275px"/>
-					  <figcaption>Cute game</figcaption>
+					  <img src="images/scene2_toon.JPG" width="190px"/>
 					</td>
 					<td style="text-align: center;">
-						<img src="images/cel_shading.webp" width="275px"/>
-						<figcaption>Cel shading</figcaption>
+						<img src="images/scene3_toon.JPG" width="190px"/>
+					</td>
+					<td style="text-align: center;">
+						<img src="images/scene4_toon.JPG" width="190px"/>
 					</td>
 				  </tr>
 				</table>
-                <br><br>
-                <table style="width: 100%; text-align: center; border-collapse: collapse;">
-                    <tr>
-                        <td style="text-align: center;">
-                          <img src="images/shader_comparison.webp" width="275px"/>
-                          <figcaption>Comparison of Shaders</figcaption>
-                        </td>
-                        <td style="text-align: center;">
-                          <img src="images/2.png" width="275px"/>
-                          <figcaption>Pixel Shading</figcaption>
-                        </td>
-                    </tr>
-                </table>
-                
-            </div>
+			</div>
             <br><br>
-			<span style="color: black;"> <b> Demo: </b> We are working on an interactive shader injection system tailored for horror games such as REPO and Resident Evil. Our demo will showcase a real-time toggleable shader overlay within a live game environment, allowing users to switch between different visual effects like cel/toon shading, dreamy filters, and pixel-style rendering. The goal of the demo is to visually highlight how these custom shaders can drastically alter the mood and aesthetic of a horror game, using minimal user input.</span>
-			<br><br>
-            <span style="color: black;"> <b>Benchmarks:</b> </span>
-			<ol type ="-"> 
-                <li> We will measure and compare the frame rates before and after applying the shaders. This should take the same rendering time as before after changes are made in our side-by-side comparison. </li>
-                <li> Create 2 or more shaders on 2 or more games. A few options include:</li>
-                <ol type = "i">
-                    <li> Changing the hue </li>
-                    <li> Changing the models (Changing the boss to Totoro) </li>
-                    <li> Game options include: Resident Evil, Outlast, R.E.P.O </li>
-                </ol>
-            </ol>
-            <span style="color: black;"> <b>Questions:</b> </span>
-			<ol type ="-"> 
-                <li> How do different visual effects and shaders change the ambience and tone of the game? </li>
-                <li> Can different shaders change the way that audiences interact with the video games?</li>
-                <li> How similar are certain shaders implementations compared to others and which need additional post-processing effects to heighten their visual impact?</li>
-            </ol>
-            <span style="color: black;"> <b>What your plan to deliver:</b> </span>
-			<ol type ="-"> 
-                <li> Baseline: </li>
-                <ol type = "i">
-                    <li> Implement out watercolor and toon shaders.</li>
-                    <li> Implement pink filter (a filter that changes everything in the game scene into some shade of pink).</li>
-                    <li> Able to inject our own custom shader into a chosen horror game.</li>
-                    <li> Can see noticeable difference in game scenes using / not using reshade.</li>
-                    <li> Compare and contrast the different effects that occur in different horror games based on the environment that is being manipulated.</li>
-                    <ol type = "a">
-                        <li> Effect on objects/characters/lighting.</li>
-                    </ol>    
-                </ol>
-            </ol>
-            <span style="color: black;"> Some unexpected problems could be attempting to integrate these shaders into the horror games (the gaming engines could not be as accessible to add our shader into). Will be solved by finding horror games that are not newly released and have a large modding community (ex: resident evil, outlast). Can test our shaders in real-time by creating them using ReShader and referencing previous shades built within ShaderToy.</span>
-            <br><br>  
 
-            <span style="color: black;"> <b>What you hope to deliver: </b> </span>
-            <ol type = "-"> 
-                <li> Expand on the completed shaders to support fancier effect (such as pink fog, hearts, anything that makes the scene dreamy etc). </li>
-                <li> Implement pixel shader.</li>
-                <li> Add model swapping to switch horror bosses with cute characters.</li>
-            </ol>
-            <span style="color: black;"> We'd also like to be able to deliver a side-by-side analysis of playing the game with and without our custom shader. We hope that this comparison will show the difference in atmosphere and visual impact before and after our Shader effects.</span>
+            
+            <span style="color: black;"> Watercolor Shading:</span><br><br>
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				  <tr>
+					<td style="text-align: center;">
+					  <img src="images/normal1.png" width="145px"/>
+					  <figcaption>normal</figcaption>
+					</td>
+					<td style="text-align: center;">
+					  <img src="images/outline1.png" width="145px"/>
+					  <figcaption>+ outline</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="images/softblending1.png" width="145px"/>
+						<figcaption>+ soft blending</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="images/toon1.png" width="145px"/>
+						<figcaption>+ toon</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="images/texture1.png" width="145px"/>
+						<figcaption>+ texture</figcaption>
+					</td>
+				  </tr>
+				</table>
+			</div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				  <tr>
+					<td style="text-align: center;">
+					  <img src="images/normal2.png" width="145px"/>
+					  <figcaption>normal</figcaption>
+					</td>
+					<td style="text-align: center;">
+					  <img src="images/outline2.png" width="145px"/>
+					  <figcaption>+ outline</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="images/softblending2.png" width="145px"/>
+						<figcaption>+ soft blending</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="images/toon2.png" width="145px"/>
+						<figcaption>+ toon</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="images/texture2.png" width="145px"/>
+						<figcaption>+ texture</figcaption>
+					</td>
+				  </tr>
+				</table>
+			</div>
 		</p>
+
+        
+        <h2>Reflections</h2>
+		<p>
+            <ol type="1">
+                <li>
+                  Toon Shading
+                  <ul style="list-style-type: '- '; padding-left: 1.2em; margin-top: 0.2em;">
+                    <li>We are on track with our plan for this toon shader. The shader is now mostly completed but there are a few more improvements that could be made such as adding edge detection. The scene will look more toon-like with edge detection and maybe we can also apply some rim lighting to the scene.</li>
+                  </ul>
+                </li>
+                <br>
+                <li>
+                    Watercolor Shading
+                    <ul style="list-style-type: '- '; padding-left: 1.2em;">
+                        <li> Hardware limitations slowed progress — only two team members had PCs capable of running both RE2 and ReShade. This resulted in a full day of debugging hardware.</li>
+                        <li> Learning to apply cel shading also required a learning curve and a lot of debugging. However, the results were extremely satisfying and we hope that they are applicable across platforms.</li>
+                    </ul>
+                </li>
+            </ol>
+        </p>
 
         <h2>Schedule</h2>
 		<p>
 		    <ol type ="-"> 
-                <li> Week 1: (4/4 - 4/11): </li>
-                <ol type = "i">
-                    <li> Learn ReShade and any necessary language to write the shader in.</li>
-                    <li> Decide on the horror game we are going to play around with/inject shader into.</li>
-                    <li> Finish setting up the environment for injecting custom shader.</li>
-                    <li> Start implementing the watercolor and toon shader.</li>
-                </ol>
-                <br>
-                <li> Week 2: (4/12 - 4/19): </li>
-                <ol type = "i">
-                    <li> Continue to work on and hopefully finish implementing one of the two shaders.</li>
-                    <li> Test the completed shader in game scene.</li>
-                    <li> Start model swapping.</li>
-                    <li> Work on the milestone video.</li>
-                </ol>
-                <br>
                 <li> Week 3: (4/20 - 4/27): </li>
                 <ol type = "i">
                     <li> Finish milestone video demo (4/20). </li>
                     <li> Finish both shaders and test them in game scene. </li>
-                    <li> Finish model swapping. </li>
+                    <li> Start and most part of model swapping. </li>
                 </ol>
                 <br>
                 <li> Week 4: (4/28 - 5/5): </li>
@@ -242,47 +279,5 @@
             </ol>
             <br>
 		</p>
-
-        <h2>Resources</h2>
-		<p>
-			<span style="color: black;"> We will use Reshade to inject our shader into the games that we are focusing on. Using Reshade’s FX shading language based on HLSL, we will use our text editors to implement the shader and later inject these shaders into the game. </span>
-			<br><br>
-            <ol type ="-"> 
-                <li> Creating Shader Resource: </li>
-                <ol type = "i">
-                    <a href="https://c-chen99.github.io/watercolorShader/final.html">Past Watercolour Shader Project Reference</a>
-                    <br>
-                    <a href="https://cyangamedev.wordpress.com/2020/10/06/watercolour-shader-experiments/">Nice walkthrough of building a watercolour shader</a>
-                    <br>
-                    <a href="https://roystan.net/articles/toon-shader/">Toon shader walkthrough</a>
-                </ol>
-                <li> Reshader Resource: </li>
-                <ol type = "i">
-                    <a href="https://reshade.me/">Reshade download</a>
-                    <br>
-                    <a href="https://www.nexusmods.com/residentevil22019/mods/138?utm_source=chatgpt.com">A Reshade preset that simulates a cel-shading effect</a>
-                    <br>
-                    <a href="https://github.com/Havens-Night/REEngine-Modding-Documentation/wiki/Custom-Model-Importing-Guide">Custom model import guide (for doing model swapping)</a>
-                    <br>
-                    <a href="https://reshademanager.com/presets/the-forest-enhancer">Reshade enhancer for The Forest</a>    
-                </ol>
-                <li> Injecting Mods into Games (ex. Resident Evil): </li>
-                <ol type = "i">
-                    <a href="https://www.youtube.com/watch?v=GZe7wEFsR8o&ab_channel=GOBLINGAMINGCHANNEL">Model swapping (make the boss tom cat) in resident evil 2 remake</a>
-                    <br>
-                    <a href="https://www.youtube.com/watch?v=m-rG842JLt0&ab_channel=Kursed">Resident Evil 2 remake mod (make all characters have a weird smile on their face)</a>
-                    <br>
-                    <a href="https://www.youtube.com/playlist?list=PLImQaTpSAdsCnJon-Eir92SZMl7tPBS4Z">Reshade Tutorial</a>
-                    <br>
-                </ol>
-                <li> Model Swapping: </li>
-                <ol type = "i">
-                    <a href="https://www.printables.com/model/157019-totoro">Model of totoro</a>
-                    <br>
-                    <a href="https://www.cgtrader.com/3d-models/totoro">Model of totoro</a>
-                    <br>
-                </ol>
-            </ol>
-		</p> 
 	</body>
 </html>
