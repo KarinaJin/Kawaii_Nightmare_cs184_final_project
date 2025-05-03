@@ -164,7 +164,7 @@
 			<h2>Technical approach/Results</h2>
 			<p>
                 <h3>Toon Shading</h3>
-                    <ul style="list-style-type: '- '; padding-left: 1.2em;">
+                    <ul>
                         <li>Boost the brightness of each pixel in the scene by multiplying a constant factor (that's greater than 1) to the base color of the pixel which is retrieved by tex2D(ReShade::BackBuffer, texcoord).rgb; where the function tex2d samples the backbuffer texture at the provided texcoord coordinates.
                         </li>
                         <li>Then we convert the RGB values into grayscale (through the 0.299 ∙ Red + 0.587 ∙ Green + 0.114 ∙ Blue formula, this formula allows us to calculate a scalar value that approximates how bright the color appears to a human viewer.) to prepare for the light quantization.</li>
@@ -174,16 +174,66 @@
                         <li>Finally we use the saturate function to clamp the resulting scaled color into proper range before returning
                         </li>
                     </ul>
-                
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                          <tr>
+                            <td style="text-align: center;">
+                              <img src="images/toonscene1.png" width="275px"/>
+                              <figcaption>scene 1</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                              <img src="images/toonscene2.png" width="275px"/>
+                              <figcaption>scene 2</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                                <img src="images/toonscene3.png" width="275px"/>
+                                <figcaption>scene 3</figcaption>
+                            </td>
+                          </tr>
+                        </table>
+                    </div>
                 <h3>
                     Pink Filter (2 modes)</h3>
-                    <ul style="list-style-type: '- '; padding-left: 1.2em;">
+                    <ul>
                         <li>Convert color from RGB to HSV and then remap all hues into a narrow magenta-violet band while preserving the scene's original shading and structure to simulate a dreamy vibe compared to the original dark scene</li>
                         <li>Use pink layers where pixels with similar values (value is calculated based on our own formula = color.r * 2 * 2 * 2 + color.g * 2 * 2 +  color.b * 2; where we try to separate scenes into different levels) are assigned the same shade of pink. This creates more toon-like scenes</li>                  
                     </ul>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                        <span style="color: black;">Hue Remapping</span> 
+                          <tr>
+                            <td style="text-align: center;">
+                              <img src="images/huescene1.png" width="275px"/>
+                            </td>
+                            <td style="text-align: center;">
+                              <img src="images/huescene2.png" width="275px"/>
+                            </td>
+                            <td style="text-align: center;">
+                                <img src="images/huescene3.png" width="275px"/>
+                            </td>
+                          </tr>
+                        </table>
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                            <span style="color: black;">Pink layer</span> 
+                            <tr>
+                              <td style="text-align: center;">
+                                <img src="images/layerscene1.png" width="275px"/>
+                                
+                              </td>
+                              <td style="text-align: center;">
+                                <img src="images/layerscene2.png" width="275px"/>
+                                
+                              </td>
+                              <td style="text-align: center;">
+                                  <img src="images/layerscene3.png" width="275px"/>
+                                 
+                              </td>
+                            </tr>
+                        </table>
+                    </div>
                 <h3>
                     Pixel Shading</h3>
-                    <ul style="list-style-type: '- '; padding-left: 1.2em;">
+                    <ul>
                         <li>This pixel shader applies a stylized pixelation effect that recreates the scene with lower resolution blocks while enhancing brightness and shifting the overall color tint
                         </li>
                         <li>Divide the screen space into discrete pixel blocks determined by a PixelSize parameter. For each pixel in the scene, we compute the corresponding block coordinates by flooring the screen-space UV coordinates after scaling them by the inverse of the PixelSize, then resampling from the top-left corner of each block using tex2D(screenSampler, pixelUV). This ensures that all pixels in the same block share the same sampled color, creating the signature "pixelated" effect</li>
@@ -214,7 +264,7 @@
                     </div>
                 <h3>
                     Edge Detection </h3>
-                    <ul style="list-style-type: '- '; padding-left: 1.2em;">
+                    <ul>
                         <li>The shader begins by computing the Sobel gradient, which detects edges by measuring the intensity differences between a pixel and its neighbors in both horizontal and vertical directions. Before applying the Sobel operator, it performs optional noise reduction through a Gaussian blur using a fixed 3x3 convolution kernel. This is blended with the original color using a user-adjustable NoiseReduction parameter, and details are preserved with a DetailPreservation slider that affects how much contrast is preserved
                         </li>
                         <li>To further improve edge accuracy and visual consistency, the shader supports adaptive thresholding. This technique adjusts the edge detection sensitivity on a per-pixel basis based on local luminance contrast, effectively reducing false edges in flat or low-contrast areas. This is done by scanning a 3x3 neighborhood of the current pixel and computing the range between the brightest and darkest pixels, then modifying the EdgeThreshold accordingly</li>
@@ -223,6 +273,24 @@
                         <li>Additionally, the EdgeWidth parameter allows users to thicken or soften the edges by scaling the intensity of the result before blending</li>
                         <li>Overall, this shader enables flexible and visually appealing edge highlighting that enhances structure, gameplay clarity, or stylization depending on the context and parameter configuration</li>    
                     </ul>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                          <tr>
+                            <td style="text-align: center;">
+                              <img src="images/scene1edge.png" width="275px"/>
+                              
+                            </td>
+                            <td style="text-align: center;">
+                              <img src="images/scene2edge.png" width="275px"/>
+                              
+                            </td>
+                            <td style="text-align: center;">
+                                <img src="images/scene3edge.png" width="275px"/>
+                                
+                            </td>
+                          </tr>
+                        </table>
+                    </div>
                 <h3>
                     Water Color Shading:</h3>
                     To achieve the intended illustrative effect, we needed to layer different shading effects together with adjustable parameters for intensity, threshold, and color that allows for full customization for users.
@@ -241,8 +309,8 @@
                         </table>
                     </div>
                 <h3>Outline Edge Detection:</h3> A shader that focuses on detecting the outline and edges of each object and character within the scene. To complete our watercolor effect, we used a slightly different edge detection implementation that finds both edges that carry depth changes and color differences within the scene, soft blending effect, and a texture overlay</li>
-                        <ul style="list-style-type: '-'; padding-left: 1.2em;">
-                            <li>Depth Buffer: We needed to retrieve the linearized depth values of the current pixel and its 4 direct neighbors that are used within the scene to implement a simplified version of Sobel-style edge detection via ReShade::GetLinearizedDepth(uv). For our sample offsets that checked neighboring pixels on the left, right, top, and bottom parts of the scene, we then multiplied them with the size of the pixel on the screen in normalized UV coordinates texelSize and the adjustable OutlineThickness that users can change for different visual effects on the videogame. By doing so, we can calculate the differences between the neighboring pixels' depths with our center pixel, compare with our adjustable DepthThreshold, and find the edge that we need tomanipulate the outlines within our scene</li>
+                        <ul>
+                            <li>Depth Buffer: We needed to retrieve the linearized depth values of the current pixel and its 4 direct neighbors that are used within the scene to implement a simplified version of Sobel-style edge detection via ReShade::GetLinearizedDepth(uv). For our sample offsets that checked neighboring pixels on the left, right, top, and bottom parts of the scene, we then multiplied them with the size of the pixel on the screen in normalized UV coordinates texelSize and the adjustable OutlineThickness that users can change for different visual effects on the videogame. By doing so, we can calculate the differences between the neighboring pixels' depths with our center pixel, compare with our adjustable DepthThreshold, and find the edge that we need to manipulate the outlines within our scene</li>
                             <li>Color-Based Edge Enhancement: Our shader allows a user to also detect RGB values of the current pixel being observed in the scene with its neighbors, compare with a ColorThreshold, and also marks the pixel as an edge similarly to our Depth Buffer implementation</li>
                             <li>Adjustable Thickness & Intensity: In our main function, we use this information of the edgeDepth and edgeColor to compare whether the pixel within the scene is an edge or not. We can then apply this new edge value that has been adjusted with the new outline thickness and color adjustment to our scene via a color lerp to achieve our intended outline effect</li>    
                         </ul>
@@ -276,7 +344,7 @@
                     </table>
                 </div>
 
-                <h3>Texture:</h3> To complete the accuracy of the watercolor effect, we added a watercolor paper texture that was heavily inspired by super-continent’s implementation on GitHub. Here we used the original game image BackBuffer with the paper texture to generate an overlay. First, the paper texture needed to be adjusted with the screen size of the game by using the ratio of the buffer width and height and later using this to adjust the paper’s dimensions. Then, our shader grabs the color of our current pixel and detects if this pixel is an edge using our edge detection algorithm from before in complete an rgb conversion between our paper texture and our game scene depending on the color space that the player chooses in ReShade. The color spaces that we used included Oklab and sRGB that are unique and can manipulate our scene using different color saturation and gradient effects. Regardless of what the player chooses, we then calculate the color density using our edge value, paper color values, and adjustable parameters such as fEdgeOffset, fEdgeDensity, fPaperDensity, fDensityOffset. After this, we convert this pigment Density into RGB color and return this new pixel value with the conversion between these two layers.
+                <h3>Texture:</h3> To complete the accuracy of the watercolor effect, we added a watercolor paper texture that was heavily inspired by super-continent’s implementation on GitHub. Here we used the original game image BackBuffer with the paper texture to generate an overlay. First, the paper texture needed to be adjusted with the screen size of the game by using the ratio of the buffer width and height and later using this to adjust the paper’s dimensions. Then, our shader grabs the color of our current pixel and detects if this pixel is an edge using our edge detection algorithm from before in complete an rgb conversion between our paper texture and our game scene depending on the color space that the player chooses in ReShade. The color spaces that we used included Oklab and sRGB. These spaces are unique and are easily manipulated by the user to create different color saturation and gradient effects. Regardless of what the player chooses, we then calculate the color density using our edge value, paper color values, and adjustable parameters such as fEdgeOffset, fEdgeDensity, fPaperDensity, fDensityOffset. After this, we convert this pigment Density into RGB color and return this new pixel value with the conversion between these two layers.
                 <div style="display: flex; flex-direction: column; align-items: center;">
                     <table style="width: 100%; text-align: center; border-collapse: collapse;">
                       <tr>
@@ -293,7 +361,7 @@
                 </div>
                 <h3>
                     Rainbow Shadows Shading:</h3> We wanted to be able to detect the shadows within the scene that bring a dark and grim atmosphere within horror games and change them to be more welcoming and cutesy by changing the colors of these shadows. The best way that we found was through rainbows (with the help of CS184 staff)!
-                    <ul style="list-style-type: '- '; padding-left: 1.2em;">
+                    <ul>
                         <li>Hue to RGB Conversion: To create a dynamic rainbow color effect to dark areas of the screen, we needed to take the hue value of the current pixel and use HSL-to-RGB formula of abs(frac(h + float3(0.0, 1.0 / 3.0, 2.0 / 3.0)) * 6.0 - 3.0). What this does is offset for the R, G, B values clamp the hue to the range of 0-1 after the addition, scale and shift the hue into 0-6 range, and create a wave pattern for all RGB components for the color wheel transitions between each of the RGB channels in order to mimic the rainbow wave
                         </li>
                         <li>Shadow Threshold: After completing this rainbow effect, we then want to get the current pixel's color and the brightness of the scene using weighted RGB average formula to check if the brightness is below our customizable ShadowThreshold value</li>
@@ -351,7 +419,7 @@
                 
                 <h3>
                     Vignette Shader:</h3> Our vignette shader lightens the mellow scene with a customizable color glow around the edges of a player's screen. This creates a dreamy atmosphere or an even more horrific picture depending on the player's needs (with the help of CS184 staff)!
-                    <ul style="list-style-type: '- '; padding-left: 1.2em;">
+                    <ul>
                         <li>Center + Distance Calculation: Using the center float value of the screen via float2(0.5, 0.5)value, we calculate the distance of this center pixel with our current uv pixel coordinate that we are observing. Depending on the distance of our current pixel location from the center, we use ReShade's smoothstep function to generate a smooth transition from 1 to 0 as the distance changes from our user's requested Radius and Softness parameters.
                         </li>
                         <li>Vignette Color Blending: Using the vignette intensity that we calculated previously with the current pixel’s scene color and the player’s VignetteColor, we can then lerp these values together to generate our new scene with the vignette effect.</li>
@@ -379,7 +447,7 @@
                     Model Swapping</h3>
                     <ol type="1">
                         <li>Setup</li>
-                        <ul style="list-style-type: '- '; padding-left: 1.2em;">
+                        <ul>
                             <li>Install FluffyQuack 5000, target <code>RE2Demo</code>.</li>
                             <li>Download mod <code>.pak</code>, convert via OpenIV to <code>TXD/DFF</code>.</li>
                             <li>Place in <code>modmanager/RE2Demo/Mods</code>.</li>
