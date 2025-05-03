@@ -364,7 +364,7 @@
                     <ul>
                         <li>Hue to RGB Conversion: To create a dynamic rainbow color effect to dark areas of the screen, we needed to take the hue value of the current pixel and use HSL-to-RGB formula of abs(frac(h + float3(0.0, 1.0 / 3.0, 2.0 / 3.0)) * 6.0 - 3.0). What this does is offset for the R, G, B values clamp the hue to the range of 0-1 after the addition, scale and shift the hue into 0-6 range, and create a wave pattern for all RGB components for the color wheel transitions between each of the RGB channels in order to mimic the rainbow wave
                         </li>
-                        <li>Shadow Threshold: After completing this rainbow effect, we then want to get the current pixel's color and the brightness of the scene using weighted RGB average formula to check if the brightness is below our customizable ShadowThreshold value</li>
+                        <li>Shadow Threshold: After completing this rainbow effect, we then want to get the current pixel's color and the brightness of the scene. Using weighted RGB average formula, we can then check if the brightness is below our threshold.</li>
                         <li>Hue Shift Speed & Rainbow Saturation: In our shader, users can adjust the speed that the rainbows shift in the game instead of being static. To do so, we used a Timer value that gets a framecount that animates the color change over time and varies across the screen space. Then we made a saturation variable that multiplies the hue we gathered from the conversion earlier with the user's requested RainbowSaturation variable</li>
                         <li>Finally, we complete a lerp over the current color, the rainbow, and its RainbowIntensity to generate our rainbow effect</li>
                     </ul>
@@ -495,34 +495,22 @@
 			    <p>
                     <ul>
                         <li>
+                            Acerola. “Making a Vignette Shader.” <i>YouTube</i>, uploaded by Acerola, 15 Feb. 2023, 
+                            <a href="https://youtube.com/shorts/RnwPPHGMowI?si=3laISW2O4ydqoZzm" target="_blank">
+                              https://youtube.com/shorts/RnwPPHGMowI?si=3laISW2O4ydqoZzm
+                            </a>.
+                        </li>
+                        <li>
+                            Bradley, Derek, and Gerhard Roth. “Adaptive Thresholding Using the Integral Image.” <i>Journal of Graphics Tools</i>, vol. 12, no. 2, Jan. 2007, pp. 13–21, 
+                            <a href="https://doi.org/10.1080/2151237x.2007.10129236" target="_blank">https://doi.org/10.1080/2151237x.2007.10129236</a>.
+                        </li>
+                        <li>
                           “Super-Continent/Watercolor-Shader: A ReShade Implementation of a Watercolor Effect.” <i>GitHub</i>, 2025, 
                           <a href="https://github.com/super-continent/watercolor-shader/tree/main" target="_blank">github.com/super-continent/watercolor-shader/tree/main</a>. Accessed 3 May 2025.
                         </li>
                         <li>
-                          Bradley, Daniel, and Gerhard Roth. “Adaptive Thresholding Using the Integral Image.” <i>Journal of Graphics Tools</i>, vol. 12, no. 2, 2007, pp. 13–27.
-                        </li>
-                        <li>
-                          Marr, David, and Ellen Hildreth. “Theory of Edge Detection.” <i>Proceedings of the Royal Society of London. Series B, Biological Sciences</i>, vol. 207, no. 1167, 1980, pp. 187–217.
-                        </li>
-                        <li>
                           ModTutorials. “How to Install Resident Evil 2 Mods in One Click.” <i>YouTube</i>, uploaded by ModTutorials, 15 Jan. 2024, 
                           <a href="https://www.youtube.com/watch?v=bELxa_FMQhw" target="_blank">https://www.youtube.com/watch?v=bELxa_FMQhw</a>
-                        </li>
-                        <li>
-                          Panthavma's Blog. “Toon Shading Fundamentals.” <i>Panthavma’s Blog</i>, 2023, 
-                          <a href="https://panthavma.com/toon-shading-fundamentals" target="_blank">panthavma.com/toon-shading-fundamentals</a>.
-                        </li>
-                        <li>
-                          “Pixelation Effect by Downsampling.” <i>Shader Development Guide</i>, n.d., 
-                          <a href="https://shaderdevguide.com/pixelation-downsampling" target="_blank">shaderdevguide.com/pixelation-downsampling</a>.
-                        </li>
-                        <li>
-                          “Gray-Level Quantization & Posterization.” <i>Digital Image Processing Tutorial</i>, n.d., 
-                          <a href="https://digitalimagetutorials.com/gray-level-quantization-posterization" target="_blank">digitalimagetutorials.com/gray-level-quantization-posterization</a>.
-                        </li>
-                        <li>
-                          Unity Technologies. “HSV Color Adjustment in Shaders (Unity Shader Graph).” <i>Unity Learn</i>, 
-                          <a href="https://unity.com/learn/shader-graph" target="_blank">unity.com/learn/shader-graph</a>.
                         </li>
                       </ul>
                 </p>
