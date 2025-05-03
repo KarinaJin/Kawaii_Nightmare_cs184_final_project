@@ -136,15 +136,16 @@
                           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                           allowfullscreen>
                   </iframe>
-                  <img class="video-cover" src="images/demo_cover.jpg" alt="Demo Video Thumbnail">
+                  <img class="video-cover" src="images/demo_cover.png" alt="Demo Video Thumbnail">
                 </div>
                 <figcaption>Demo Video</figcaption>
             </figure>
 
 			Link to webpage: <a href="https://karinajin.github.io/Kawaii_Nightmare_cs184_final_project/FinalDeliverable/index.html">Kawaii_Nightmare_cs184_final_project/Milestone/index.html</a><br>
 			Link to demo video: <a href="https://youtu.be/qpaObhTRcTo">Demo Video</a><br>
-			Link to presentation slides: <a href="https://docs.google.com/presentation/d/1zt-sbrLjKvNAveC40DWSor0WB6StELRZi2beE25_I7M/edit?slide=id.p#slide=id.p">Final Deliverable Video Slides</a><br>
-			Link to presentation slides for TA: <a href="https://docs.google.com/presentation/d/1zt-sbrLjKvNAveC40DWSor0WB6StELRZi2beE25_I7M/edit?slide=id.p#slide=id.p">Final Deliverable Presentation Slides</a>
+			Link to Final video: <a href="">Final Video</a><br>
+            Link to presentation slides to Professor & Final Video: <a href="https://docs.google.com/presentation/d/1p0gFNMAr0tYsbd-ZjURzuKSC9VIAo52TIm9XTD953jw/edit?slide=id.g353dfbec284_1_18#slide=id.g353dfbec284_1_18">Final Video Slides</a><br>
+			Link to presentation slides to TA: <a href="https://docs.google.com/presentation/d/1HCJrI6NC--nnVdg3tryVPdMyJ1IQj5yVcAJWxpvBsyQ/edit?slide=id.g35141b4dabd_0_5#slide=id.g35141b4dabd_0_5">Final Deliverable Presentation Slides</a>
 
 			<h2>Abstract</h2>
 			<p>
@@ -160,7 +161,7 @@
                 }
             </style>
 
-			<h2>Technical approach</h2>
+			<h2>Technical approach/Results</h2>
 			<p>
                 <h3>Toon Shading</h3>
                     <ul style="list-style-type: '- '; padding-left: 1.2em;">
@@ -173,6 +174,7 @@
                         <li>Finally we use the saturate function to clamp the resulting scaled color into proper range before returning
                         </li>
                     </ul>
+                
                 <h3>
                     Pink Filter (2 modes)</h3>
                     <ul style="list-style-type: '- '; padding-left: 1.2em;">
@@ -188,6 +190,28 @@
                         <li>Next, we apply a brightness enhancement by multiplying the sampled color by a scalar value Brightness > 1, boosting the overall intensity of the image uniformly</li>
                         <li>To further stylize the image, the shader allows individual color channel boosts. Each of the red, green, and blue components can be selectively intensified with RedBoost, GreenBoost, and BlueBoost parameters respectively. These act as tint controls, allowing the user to emphasize or suppress specific color tones in the pixelated scene, creating anything from warm sun-drenched palettes to cool neon glows</li>                
                     </ul>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                          <tr>
+                            <td style="text-align: center;">
+                              <img src="images/Pixel Normal.png" width="190px"/>
+                              <figcaption>Pixel shader original</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                              <img src="images/Pixel More Red and Blue.png" width="190px"/>
+                              <figcaption>+ red & blue booster</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                                <img src="images/Pixel More Green.png" width="190px"/>
+                                <figcaption>+ green booster</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                                <img src="images/Pixel More blue.png" width="190px"/>
+                                <figcaption>+ blue booster</figcaption>
+                            </td>
+                          </tr>
+                        </table>
+                    </div>
                 <h3>
                     Edge Detection </h3>
                     <ul style="list-style-type: '- '; padding-left: 1.2em;">
@@ -202,19 +226,71 @@
                 <h3>
                     Water Color Shading:</h3>
                     To achieve the intended illustrative effect, we needed to layer different shading effects together with adjustable parameters for intensity, threshold, and color that allows for full customization for users.
-
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                          <tr>
+                            <td style="text-align: center;">
+                              <img src="images/normal1.png" width="250px"/>
+                              <figcaption>normal</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                                <img src="images/normal2.png" width="250px"/>
+                                <figcaption>normal</figcaption>
+                            </td>
+                          </tr>
+                        </table>
+                    </div>
                 <h3>Outline Edge Detection:</h3> A shader that focuses on detecting the outline and edges of each object and character within the scene. To complete our watercolor effect, we used a slightly different edge detection implementation that finds both edges that carry depth changes and color differences within the scene, soft blending effect, and a texture overlay</li>
                         <ul style="list-style-type: '-'; padding-left: 1.2em;">
                             <li>Depth Buffer: We needed to retrieve the linearized depth values of the current pixel and its 4 direct neighbors that are used within the scene to implement a simplified version of Sobel-style edge detection via ReShade::GetLinearizedDepth(uv). For our sample offsets that checked neighboring pixels on the left, right, top, and bottom parts of the scene, we then multiplied them with the size of the pixel on the screen in normalized UV coordinates texelSize and the adjustable OutlineThickness that users can change for different visual effects on the videogame. By doing so, we can calculate the differences between the neighboring pixels' depths with our center pixel, compare with our adjustable DepthThreshold, and find the edge that we need tomanipulate the outlines within our scene</li>
                             <li>Color-Based Edge Enhancement: Our shader allows a user to also detect RGB values of the current pixel being observed in the scene with its neighbors, compare with a ColorThreshold, and also marks the pixel as an edge similarly to our Depth Buffer implementation</li>
                             <li>Adjustable Thickness & Intensity: In our main function, we use this information of the edgeDepth and edgeColor to compare whether the pixel within the scene is an edge or not. We can then apply this new edge value that has been adjusted with the new outline thickness and color adjustment to our scene via a color lerp to achieve our intended outline effect</li>    
                         </ul>
-
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                              <tr>
+                                <td style="text-align: center;">
+                                  <img src="images/outline1.png" width="250px"/>
+                                  <figcaption>watercolor + outline</figcaption>
+                                </td>
+                                <td style="text-align: center;">
+                                    <img src="images/outline2.png" width="250px"/>
+                                    <figcaption>watercolor + normal</figcaption>
+                                </td>
+                              </tr>
+                            </table>
+                        </div>
                 <h3>Soft Blending:</h3> After noticing that our scene appeared very intense with the strong outlines that are now added to the scene, we needed to alleviate this effect by generating a 3x3 box blur around each pixel and then blend the result of this effect into the original color like a Guassian blur. We first sample from 8 neighbors with the center pixel that we have using offset values and pixel size multiplier via texelSize, average the RGB color within our sample grid, and lerp the pixel's color, the blurred color, and the adjustable BlendStrength parameter.
-
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                      <tr>
+                        <td style="text-align: center;">
+                          <img src="images/softblending1.png" width="250px"/>
+                          <figcaption>watercolor + softblending</figcaption>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="images/softblending2.png" width="250px"/>
+                            <figcaption>watercolor + softblending</figcaption>
+                        </td>
+                      </tr>
+                    </table>
+                </div>
 
                 <h3>Texture:</h3> To complete the accuracy of the watercolor effect, we added a watercolor paper texture that was heavily inspired by super-continent’s implementation on GitHub. Here we used the original game image BackBuffer with the paper texture to generate an overlay. First, the paper texture needed to be adjusted with the screen size of the game by using the ratio of the buffer width and height and later using this to adjust the paper’s dimensions. Then, our shader grabs the color of our current pixel and detects if this pixel is an edge using our edge detection algorithm from before in complete an rgb conversion between our paper texture and our game scene depending on the color space that the player chooses in ReShade. The color spaces that we used included Oklab and sRGB that are unique and can manipulate our scene using different color saturation and gradient effects. Regardless of what the player chooses, we then calculate the color density using our edge value, paper color values, and adjustable parameters such as fEdgeOffset, fEdgeDensity, fPaperDensity, fDensityOffset. After this, we convert this pigment Density into RGB color and return this new pixel value with the conversion between these two layers.
-
+                <div style="display: flex; flex-direction: column; align-items: center;">
+                    <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                      <tr>
+                        <td style="text-align: center;">
+                          <img src="images/texture1.png" width="250px"/>
+                          <figcaption>watercolor + texture</figcaption>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="images/texture2.png" width="250px"/>
+                            <figcaption>watercolor + texture</figcaption>
+                        </td>
+                      </tr>
+                    </table>
+                </div>
                 <h3>
                     Rainbow Shadows Shading:</h3> We wanted to be able to detect the shadows within the scene that bring a dark and grim atmosphere within horror games and change them to be more welcoming and cutesy by changing the colors of these shadows. The best way that we found was through rainbows (with the help of CS184 staff)!
                     <ul style="list-style-type: '- '; padding-left: 1.2em;">
@@ -224,11 +300,84 @@
                         <li>Hue Shift Speed & Rainbow Saturation: In our shader, users can adjust the speed that the rainbows shift in the game instead of being static. To do so, we used a Timer value that gets a framecount that animates the color change over time and varies across the screen space. Then we made a saturation variable that multiplies the hue we gathered from the conversion earlier with the user's requested RainbowSaturation variable</li>
                         <li>Finally, we complete a lerp over the current color, the rainbow, and its RainbowIntensity to generate our rainbow effect</li>
                     </ul>
-                </li>
-
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                          <tr>
+                            <td style="text-align: center;">
+                              <img src="images/rainbow1_gif.gif" width="250px"/>
+                              <figcaption>rainbow</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                                <img src="images/rainbow2_gif.gif" width="250px"/>
+                                <figcaption>rainbow + watercolor</figcaption>
+                            </td>
+                          </tr>
+                        </table>
+                    </div>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                          <tr>
+                            <td style="text-align: center;">
+                              <img src="images/high_high.png" width="275px"/>
+                              <figcaption>high threshold & high intensity</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                              <img src="images/medium_high.png" width="275px"/>
+                              <figcaption>medium threshold & high intensity</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                                <img src="images/low high.png" width="275px"/>
+                                <figcaption>low threshold & high intensity</figcaption>
+                            </td>
+                          </tr>
+                        </table>
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                            <tr>
+                              <td style="text-align: center;">
+                                <img src="images/high_low.png" width="275px"/>
+                                <figcaption>high threshold & low intensity</figcaption>
+                              </td>
+                              <td style="text-align: center;">
+                                <img src="images/medium low.png" width="275px"/>
+                                <figcaption>medium threshold & low intensity</figcaption>
+                              </td>
+                              <td style="text-align: center;">
+                                  <img src="images/low_low.png" width="275px"/>
+                                  <figcaption>low threshold & low intensity</figcaption>
+                              </td>
+                            </tr>
+                        </table>
+                    </div>
+                
+                <h3>
+                    Vignette Shader:</h3> Our vignette shader lightens the mellow scene with a customizable color glow around the edges of a player's screen. This creates a dreamy atmosphere or an even more horrific picture depending on the player's needs (with the help of CS184 staff)!
+                    <ul style="list-style-type: '- '; padding-left: 1.2em;">
+                        <li>Center + Distance Calculation: Using the center float value of the screen via float2(0.5, 0.5)value, we calculate the distance of this center pixel with our current uv pixel coordinate that we are observing. Depending on the distance of our current pixel location from the center, we use ReShade's smoothstep function to generate a smooth transition from 1 to 0 as the distance changes from our user's requested Radius and Softness parameters.
+                        </li>
+                        <li>Vignette Color Blending: Using the vignette intensity that we calculated previously with the current pixel’s scene color and the player’s VignetteColor, we can then lerp these values together to generate our new scene with the vignette effect.</li>
+                    </ul>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                          <tr>
+                            <td style="text-align: center;">
+                              <img src="images/normal_vignette.png" width="275px"/>
+                              <figcaption>Normal</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                              <img src="images/watercolor_vignette.png" width="275px"/>
+                              <figcaption>Watercolor</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                                <img src="images/vignette.png" width="275px"/>
+                                <figcaption>Watercolor + vignette</figcaption>
+                            </td>
+                          </tr>
+                        </table>
+                    </div>
+                
                 <h3>
                     Model Swapping</h3>
-                    <ol type="i">
+                    <ol type="1">
                         <li>Setup</li>
                         <ul style="list-style-type: '- '; padding-left: 1.2em;">
                             <li>Install FluffyQuack 5000, target <code>RE2Demo</code>.</li>
@@ -238,16 +387,89 @@
                         <li>Activation: Relaunch FluffyQuack → toggle mod and launch demo to verify.</li>
                         <li>Implementation: Hook <code>ReShade::DrawModelReplacement</code> to intercept mesh loads, remap IDs, and update <code>modelinfo.meta</code>.</li>
                     </ol>
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                          <tr>
+                            <td style="text-align: center;">
+                              <img src="images/model1_gif.gif" width="275px"/>
+                              <figcaption>high threshold & high intensity</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                              <img src="images/model3_gif.gif" width="275px"/>
+                              <figcaption>medium threshold & high intensity</figcaption>
+                            </td>
+                            <td style="text-align: center;">
+                                <img src="images/model5_gif.gif" width="275px"/>
+                                <figcaption>low threshold & high intensity</figcaption>
+                            </td>
+                          </tr>
+                        </table>
+                        <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                            <tr>
+                              <td style="text-align: center;">
+                                <img src="images/model2_gif.gif" width="275px"/>
+                                <figcaption>high threshold & low intensity</figcaption>
+                              </td>
+                              <td style="text-align: center;">
+                                <img src="images/model4_gif.gif" width="275px"/>
+                                <figcaption>medium threshold & low intensity</figcaption>
+                              </td>
+                              <td style="text-align: center;">
+                                  <img src="images/model6_gif.gif" width="275px"/>
+                                  <figcaption>low threshold & low intensity</figcaption>
+                              </td>
+                            </tr>
+                        </table>
+                    </div>
             </p>
 
-			<h2>Results</h2>
-			<p></p>
-
 			<h2>References</h2>
-			<p></p>
+			    <p>
+                    <ul>
+                        <li>
+                          “Super-Continent/Watercolor-Shader: A ReShade Implementation of a Watercolor Effect.” <i>GitHub</i>, 2025, 
+                          <a href="https://github.com/super-continent/watercolor-shader/tree/main" target="_blank">github.com/super-continent/watercolor-shader/tree/main</a>. Accessed 3 May 2025.
+                        </li>
+                        <li>
+                          Bradley, Daniel, and Gerhard Roth. “Adaptive Thresholding Using the Integral Image.” <i>Journal of Graphics Tools</i>, vol. 12, no. 2, 2007, pp. 13–27.
+                        </li>
+                        <li>
+                          Marr, David, and Ellen Hildreth. “Theory of Edge Detection.” <i>Proceedings of the Royal Society of London. Series B, Biological Sciences</i>, vol. 207, no. 1167, 1980, pp. 187–217.
+                        </li>
+                        <li>
+                          ModTutorials. “How to Install Resident Evil 2 Mods in One Click.” <i>YouTube</i>, uploaded by ModTutorials, 15 Jan. 2024, 
+                          <a href="https://www.youtube.com/watch?v=bELxa_FMQhw" target="_blank">https://www.youtube.com/watch?v=bELxa_FMQhw</a>
+                        </li>
+                        <li>
+                          Panthavma's Blog. “Toon Shading Fundamentals.” <i>Panthavma’s Blog</i>, 2023, 
+                          <a href="https://panthavma.com/toon-shading-fundamentals" target="_blank">panthavma.com/toon-shading-fundamentals</a>.
+                        </li>
+                        <li>
+                          “Pixelation Effect by Downsampling.” <i>Shader Development Guide</i>, n.d., 
+                          <a href="https://shaderdevguide.com/pixelation-downsampling" target="_blank">shaderdevguide.com/pixelation-downsampling</a>.
+                        </li>
+                        <li>
+                          “Gray-Level Quantization & Posterization.” <i>Digital Image Processing Tutorial</i>, n.d., 
+                          <a href="https://digitalimagetutorials.com/gray-level-quantization-posterization" target="_blank">digitalimagetutorials.com/gray-level-quantization-posterization</a>.
+                        </li>
+                        <li>
+                          Unity Technologies. “HSV Color Adjustment in Shaders (Unity Shader Graph).” <i>Unity Learn</i>, 
+                          <a href="https://unity.com/learn/shader-graph" target="_blank">unity.com/learn/shader-graph</a>.
+                        </li>
+                      </ul>
+                </p>
 
 			<h2>Contribution</h2>
-			<p></p>
+			    <p>
+                    <span style="color: black;">Angela: Worked on the watercolor shader that included an outline edge detection, soft blending, and texture effects. Completed the shader for the vignette effect and rainbow shadow generation. Helped with finding models for model swapping.</span>
+                    <br><br>
+                    <span style="color: black;">Anthea: Found model swapping method and completed model swap for clothes on Leon. Finished organizing report. Designed presentation.</span>
+                    <br><br>
+                    <span style="color: black;">Jackie: Work on the toon shader, pink filter and help with the model swapping. Also make the gif, clips, screenshot for the presentations.</span>
+                    <br><br>
+                    <span style="color: black;">Karina: Work on the pixel shader and the edge detections. Record and edit the demo videos. Also move content into the final web pages.</span>
+                    
+                </p>
 		</div>
 	</body>
 </html>
